@@ -2,6 +2,11 @@
   {
     "name": "stranded-on-a-raft",
     "thumbnail": "games/stranded-on-a-raft/thumbnail.png",
-    "path": "games/stranded-on-a-raft/index.html"
+    "path": "games/stranded-on-a-raft/html/index.html"
+  },
+ {
+    "name": "Dungeon Deck",
+    "thumbnail": "games/dungeon-deck/tn.png",
+    "path": "games/dungeon-deck/index.html"
   }
 ]
