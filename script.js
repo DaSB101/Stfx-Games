@@ -1,11 +1,22 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  // DOM Elements
   const toggleModeButton = document.getElementById("toggle-mode");
   const setTabNameButton = document.getElementById("set-tab-name");
   const tabNameInput = document.getElementById("tab-name-input");
   const setFaviconButton = document.getElementById("set-favicon");
   const faviconInput = document.getElementById("favicon-input");
   const gameList = document.getElementById("game-list");
+
+  // Fetch game data from config.json dynamically
+  let games = [];
+  try {
+    const response = await fetch("config.json");
+    if (!response.ok) throw new Error("Failed to fetch config.json");
+    games = await response.json();
+  } catch (error) {
+    console.error(error);
+    gameList.innerHTML = "<p>Error loading game list. Please try again later.</p>";
+    return;
+  }
 
   // 1. Toggle Dark/Light Mode
   toggleModeButton.addEventListener("click", () => {
@@ -43,34 +54,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // 4. Load Games from config.json
-  try {
-    const response = await fetch("config.json");
-    if (!response.ok) throw new Error("Could not fetch config.json");
-
-    const games = await response.json();
-
-    if (games.length === 0) {
-      gameList.innerHTML = "<p>No games found. Please check config.json.</p>";
-      return;
-    }
-
-    games.forEach((game) => {
-      const card = document.createElement("div");
-      card.classList.add("game-card");
-
-      card.innerHTML = `
-        <img src="${game.thumbnail}" alt="${game.name}">
-        <a href="${game.path}" target="_blank">${game.name}</a>
-        <button onclick="showCredits('${game.creator}', '${game.link}')">Credits</button>
-      `;
-
-      gameList.appendChild(card);
-    });
-  } catch (error) {
-    gameList.innerHTML = `<p>Error loading games: ${error.message}</p>`;
-    console.error(error);
+  // 4. Load Games
+  if (games.length === 0) {
+    gameList.innerHTML = "<p>No games found. Please check the configuration.</p>";
+    return;
   }
+
+  games.forEach((game) => {
+    const card = document.createElement("div");
+    card.classList.add("game-card");
+
+    card.innerHTML = `
+      <img src="${game.thumbnail}" alt="${game.name}">
+      <a href="${game.path}" target="_blank">${game.name}</a>
+      <button onclick="showCredits('${game.creator}', '${game.link}')">Credits</button>
+    `;
+
+    gameList.appendChild(card);
+  });
 });
 
 // Show credits popup
