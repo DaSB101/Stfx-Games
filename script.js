@@ -6,55 +6,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   const faviconInput = document.getElementById("favicon-input");
   const gameList = document.getElementById("game-list");
 
-  // Fetch game data from config.json dynamically
+  // 1. Fetch game data from config.json
   let games = [];
   try {
-    const response = await fetch("config.json");
+    const response = await fetch("./config.json");
     if (!response.ok) throw new Error("Failed to fetch config.json");
     games = await response.json();
   } catch (error) {
-    console.error(error);
+    console.error("Error loading game data:", error);
     gameList.innerHTML = "<p>Error loading game list. Please try again later.</p>";
     return;
   }
 
-  // 1. Toggle Dark/Light Mode
-  toggleModeButton.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
-    toggleModeButton.textContent = document.body.classList.contains("light-mode")
-      ? "Switch to Dark Mode"
-      : "Switch to Light Mode";
-  });
-
-  // 2. Set Tab Name
-  setTabNameButton.addEventListener("click", () => {
-    const tabName = tabNameInput.value.trim();
-    if (tabName) {
-      document.title = tabName;
-    } else {
-      alert("Please enter a valid tab name.");
-    }
-  });
-
-  // 3. Set Favicon
-  setFaviconButton.addEventListener("click", () => {
-    const faviconURL = faviconInput.value.trim();
-    if (faviconURL) {
-      const faviconLink = document.querySelector("link[rel='icon']");
-      if (faviconLink) {
-        faviconLink.href = faviconURL;
-      } else {
-        const newFavicon = document.createElement("link");
-        newFavicon.rel = "icon";
-        newFavicon.href = faviconURL;
-        document.head.appendChild(newFavicon);
-      }
-    } else {
-      alert("Please enter a valid favicon URL.");
-    }
-  });
-
-  // 4. Load Games
+  // 2. Render games
   if (games.length === 0) {
     gameList.innerHTML = "<p>No games found. Please check the configuration.</p>";
     return;
@@ -71,6 +35,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
 
     gameList.appendChild(card);
+  });
+
+  // 3. Toggle Light/Dark Mode
+  toggleModeButton.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    toggleModeButton.textContent = document.body.classList.contains("light-mode")
+      ? "Switch to Dark Mode"
+      : "Switch to Light Mode";
+  });
+
+  // 4. Set Tab Name
+  setTabNameButton.addEventListener("click", () => {
+    const tabName = tabNameInput.value.trim();
+    if (tabName) {
+      document.title = tabName;
+    } else {
+      alert("Please enter a valid tab name.");
+    }
+  });
+
+  // 5. Set Favicon
+  setFaviconButton.addEventListener("click", () => {
+    const faviconURL = faviconInput.value.trim();
+    if (faviconURL) {
+      const faviconLink = document.querySelector("link[rel='icon']");
+      if (faviconLink) {
+        faviconLink.href = faviconURL;
+      } else {
+        const newFavicon = document.createElement("link");
+        newFavicon.rel = "icon";
+        newFavicon.href = faviconURL;
+        document.head.appendChild(newFavicon);
+      }
+    } else {
+      alert("Please enter a valid favicon URL.");
+    }
   });
 });
 
