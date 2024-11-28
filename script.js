@@ -1,55 +1,79 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const gameList = document.getElementById("game-list");
-  const themeToggle = document.getElementById("theme-toggle");
+  // DOM Elements
+  const toggleModeButton = document.getElementById("toggle-mode");
+  const setTabNameButton = document.getElementById("set-tab-name");
   const tabNameInput = document.getElementById("tab-name-input");
-  const setTabNameBtn = document.getElementById("set-tab-name");
-  const faviconUrlInput = document.getElementById("favicon-url-input");
-  const setFaviconBtn = document.getElementById("set-favicon");
+  const setFaviconButton = document.getElementById("set-favicon");
+  const faviconInput = document.getElementById("favicon-input");
+  const gameList = document.getElementById("game-list");
 
-  // Fetch the game configuration
-  const response = await fetch("config.json");
-  const games = await response.json();
-
-  // Populate the games
-  games.forEach((game) => {
-    const card = document.createElement("div");
-    card.classList.add("game-card");
-
-    card.innerHTML = `
-      <img src="${game.thumbnail}" alt="${game.name}">
-      <a href="${game.path}" target="_blank">${game.name}</a>
-      <button onclick="showCredits('${game.creator}', '${game.link}')">Credits</button>
-    `;
-
-    gameList.appendChild(card);
-  });
-
-  // Theme Toggle
-  themeToggle.addEventListener("click", () => {
+  // 1. Toggle Dark/Light Mode
+  toggleModeButton.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
-    const isLightMode = document.body.classList.contains("light-mode");
-    themeToggle.textContent = isLightMode ? "Switch to Dark Mode" : "Switch to Light Mode";
+    toggleModeButton.textContent = document.body.classList.contains("light-mode")
+      ? "Switch to Dark Mode"
+      : "Switch to Light Mode";
   });
 
-  // Change Tab Name
-  setTabNameBtn.addEventListener("click", () => {
-    const tabName = tabNameInput.value;
+  // 2. Set Tab Name
+  setTabNameButton.addEventListener("click", () => {
+    const tabName = tabNameInput.value.trim();
     if (tabName) {
       document.title = tabName;
+    } else {
+      alert("Please enter a valid tab name.");
     }
   });
 
-  // Change Favicon
-  setFaviconBtn.addEventListener("click", () => {
-    const faviconUrl = faviconUrlInput.value;
-    if (faviconUrl) {
-      const faviconLink = document.getElementById("favicon");
-      faviconLink.href = faviconUrl;
+  // 3. Set Favicon
+  setFaviconButton.addEventListener("click", () => {
+    const faviconURL = faviconInput.value.trim();
+    if (faviconURL) {
+      const faviconLink = document.querySelector("link[rel='icon']");
+      if (faviconLink) {
+        faviconLink.href = faviconURL;
+      } else {
+        const newFavicon = document.createElement("link");
+        newFavicon.rel = "icon";
+        newFavicon.href = faviconURL;
+        document.head.appendChild(newFavicon);
+      }
+    } else {
+      alert("Please enter a valid favicon URL.");
     }
   });
+
+  // 4. Load Games from config.json
+  try {
+    const response = await fetch("config.json");
+    if (!response.ok) throw new Error("Could not fetch config.json");
+
+    const games = await response.json();
+
+    if (games.length === 0) {
+      gameList.innerHTML = "<p>No games found. Please check config.json.</p>";
+      return;
+    }
+
+    games.forEach((game) => {
+      const card = document.createElement("div");
+      card.classList.add("game-card");
+
+      card.innerHTML = `
+        <img src="${game.thumbnail}" alt="${game.name}">
+        <a href="${game.path}" target="_blank">${game.name}</a>
+        <button onclick="showCredits('${game.creator}', '${game.link}')">Credits</button>
+      `;
+
+      gameList.appendChild(card);
+    });
+  } catch (error) {
+    gameList.innerHTML = `<p>Error loading games: ${error.message}</p>`;
+    console.error(error);
+  }
 });
 
-// Function to display credit popup
+// Show credits popup
 function showCredits(creator, link) {
-  alert(`Game created by ${creator}. Visit the original page here: ${link}`);
+  alert(`Creator: ${creator}\nOriginal Page: ${link}`);
 }
