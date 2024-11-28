@@ -1,15 +1,36 @@
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --accent-color: #03dac5;
+  --header-footer-bg: #1f1f1f;
+}
+
+.light-mode {
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --accent-color: #6200ea;
+  --header-footer-bg: #f4f4f9;
+}
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: var(--background-color);
+  color: var(--text-color);
   margin: 0;
 }
 
 header {
   text-align: center;
-  background-color: #6200ea;
-  color: white;
+  background-color: var(--header-footer-bg);
+  color: var(--accent-color);
   padding: 1rem;
+}
+
+.settings {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 #game-list {
@@ -21,13 +42,14 @@ header {
 }
 
 .game-card {
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--header-footer-bg);
+  border: 1px solid var(--accent-color);
   border-radius: 8px;
   overflow: hidden;
   width: 200px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: var(--text-color);
 }
 
 .game-card img {
@@ -38,14 +60,29 @@ header {
 .game-card a {
   display: block;
   padding: 0.5rem;
-  background: #6200ea;
-  color: white;
+  background: var(--accent-color);
+  color: var(--header-footer-bg);
   text-decoration: none;
   font-weight: bold;
+  border-radius: 0 0 8px 8px;
 }
 
 footer {
   text-align: center;
   padding: 1rem;
-  background-color: #ddd;
+  background-color: var(--header-footer-bg);
+  color: var(--text-color);
+}
+
+button {
+  padding: 5px 10px;
+  border: none;
+  background-color: var(--accent-color);
+  color: var(--header-footer-bg);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #018786; /* Slightly darker accent */
 }

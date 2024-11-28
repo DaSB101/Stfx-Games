@@ -1,12 +1,16 @@
 [
   {
-    "name": "stranded-on-a-raft",
-    "thumbnail": "games/stranded-on-a-raft/thumbnail.png",
-    "path": "games/stranded-on-a-raft/html/index.html"
-  },
- {
     "name": "Dungeon Deck",
-    "thumbnail": "games/dungeon-deck/tn.png",
-    "path": "games/dungeon-deck/index.html"
+    "thumbnail": games/dungeon-deck/tn.png",
+    "path": "games/dungeon-deck/index.html",
+    "creator": "incinious",
+    "link": "https://incinious.itch.io/dungeon-deck"
+  },
+  {
+    "name": "Stranded On A Raft",
+    "thumbnail": "games/stranded-on-a-raft/thumbnail.png",
+    "path": "games/stranded-on-a-raft/html/index.html",
+    "creator": "rinexusgames",
+    "link": "https://rinexusgames.itch.io/stranded-on-a-raft"
   }
 ]
