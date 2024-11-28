@@ -1,7 +1,7 @@
 [
   {
     "name": "Dungeon Deck",
-    "thumbnail": games/dungeon-deck/tn.png",
+    "thumbnail": "games/dungeon-deck/tn.png",
     "path": "games/dungeon-deck/index.html",
     "creator": "incinious",
     "link": "https://incinious.itch.io/dungeon-deck"
