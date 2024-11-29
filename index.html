@@ -5,25 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>STFX Games Library</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico">
+  <script defer src="script.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
     <h1>STFX Games Library</h1>
-    <div>
-      <button id="toggle-mode">Switch to Light Mode</button>
-      <input type="text" id="tab-name-input" placeholder="Enter tab name">
-      <button id="set-tab-name">Set Tab Name</button>
-      <input type="text" id="favicon-input" placeholder="Enter favicon URL">
-      <button id="set-favicon">Set Favicon</button>
-    </div>
+    <input type="text" id="favicon-input" placeholder="Enter a website URL">
+    <button id="set-favicon">Set Tab Style</button>
   </header>
-  <main>
-    <div id="game-list"></div>
-  </main>
-  <footer>
-    <p>&copy; 2024 STFX Games Library</p>
-  </footer>
-  <script src="script.js"></script>
+  <main id="game-list"></main>
+  <footer>&copy; 2024 STFX Games Library</footer>
 </body>
 </html>

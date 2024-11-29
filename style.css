@@ -1,48 +1,29 @@
-/* Global Styles (Dark Mode Only) */
-body {
-  background-color: #121212;
-  color: #ffffff;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+/* Game Titles Styling */
+.game-title {
+  display: block;
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00cec9;
+  text-decoration: none;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
 }
 
-header, footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #333333;
-  color: #ffffff;
+.game-title:hover {
+  color: #81ecec;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
 }
 
-button {
-  background-color: #00b894;
+/* Favorite Button */
+.favorite-btn {
+  background: none;
   border: none;
-  color: white;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
+  font-size: 1.5rem;
+  color: #ffd700;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease;
 }
 
-button:hover {
-  background-color: #019874;
-}
-
-.game-card {
-  display: inline-block;
-  width: 200px;
-  margin: 10px;
-  text-align: center;
-  transition: transform 0.2s;
-}
-
-.game-card:hover {
-  transform: scale(1.05);
-}
-
-.game-card img {
-  max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.favorite-btn:hover {
+  transform: scale(1.2);
 }
