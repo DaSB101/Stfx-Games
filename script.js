@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  const gameList = document.getElementById("game-list");
+  const favoritesList = document.getElementById("favorites-list");
   const setTabStyleButton = document.getElementById("set-favicon");
   const faviconInput = document.getElementById("favicon-input");
-  const gameList = document.getElementById("game-list");
 
   // Load saved tab style settings
   const savedTabTitle = localStorage.getItem("tabTitle");
@@ -24,32 +25,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Render games
-  if (games.length === 0) {
-    gameList.innerHTML = "<p>No games found. Please check the configuration.</p>";
-    return;
-  }
+  // Render games and favorites
+  renderGames(games, gameList, favoritesList, favorites);
 
-  games.forEach((game, index) => {
-    const card = document.createElement("div");
-    card.classList.add("game-card");
-
-    // Check if game is favorited
-    const isFavorited = favorites.includes(index);
-
-    card.innerHTML = `
-      <img src="${game.thumbnail}" alt="${game.name}">
-      <a href="${game.path}" target="_blank" class="game-title">${game.name}</a>
-      <button onclick="showCredits('${game.creator}', '${game.link}')">Credits</button>
-      <button class="favorite-btn" data-index="${index}" aria-label="Favorite">
-        <span>${isFavorited ? "★" : "☆"}</span>
-      </button>
-    `;
-
-    gameList.appendChild(card);
-  });
-
-  // Event Listener: Set Tab Style (Favicon and Title)
+  // Event Listener: Set Tab Style
   setTabStyleButton.addEventListener("click", async () => {
     const siteURL = faviconInput.value.trim();
     if (!siteURL) {
@@ -57,10 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    let formattedURL = siteURL;
-    if (!formattedURL.startsWith("http")) {
-      formattedURL = `https://${formattedURL}`;
-    }
+    let formattedURL = siteURL.startsWith("http") ? siteURL : `https://${siteURL}`;
 
     try {
       const response = await fetch(formattedURL, { mode: "cors" });
@@ -68,16 +44,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(text, "text/html");
 
-      // Fetch site's title
+      // Fetch title and favicon
       const siteTitle = doc.querySelector("title")?.textContent || "Untitled Site";
-      document.title = siteTitle;
-      localStorage.setItem("tabTitle", siteTitle);
+      const faviconLink = doc.querySelector("link[rel='icon'], link[rel='shortcut icon']");
 
-      // Fetch site's favicon
-      let faviconLink = doc.querySelector("link[rel='icon'], link[rel='shortcut icon']");
       if (faviconLink) {
         const faviconURL = new URL(faviconLink.getAttribute("href"), formattedURL).href;
+        document.title = siteTitle;
         updateFavicon(faviconURL);
+
+        // Save in localStorage
+        localStorage.setItem("tabTitle", siteTitle);
         localStorage.setItem("tabFavicon", faviconURL);
       } else {
         alert("No favicon found on the provided site.");
@@ -88,27 +65,49 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // Event Listener: Handle Favorite Button Clicks
-  gameList.addEventListener("click", (event) => {
-    if (event.target.closest(".favorite-btn")) {
-      const button = event.target.closest(".favorite-btn");
-      const index = parseInt(button.dataset.index, 10);
-      const isFavorited = favorites.includes(index);
+  function renderGames(games, gameList, favoritesList, favorites) {
+    gameList.innerHTML = "";
+    favoritesList.innerHTML = "";
 
-      // Toggle favorite state
-      if (isFavorited) {
-        favorites = favorites.filter((favIndex) => favIndex !== index);
-        button.innerHTML = "<span>☆</span>";
+    games.forEach((game, index) => {
+      const card = createGameCard(game, index, favorites.includes(index));
+      if (favorites.includes(index)) {
+        favoritesList.appendChild(card);
       } else {
-        favorites.push(index);
-        button.innerHTML = "<span>★</span>";
+        gameList.appendChild(card);
       }
+    });
+  }
 
-      localStorage.setItem("favorites", JSON.stringify(favorites));
+  function createGameCard(game, index, isFavorited) {
+    const card = document.createElement("div");
+    card.classList.add("game-card");
+
+    card.innerHTML = `
+      <img src="${game.thumbnail}" alt="${game.name}">
+      <a href="${game.path}" target="_blank" class="game-title">${game.name}</a>
+      <button onclick="showCredits('${game.creator}', '${game.link}')">Credits</button>
+      <button class="favorite-btn" data-index="${index}" aria-label="Favorite">
+        <span>${isFavorited ? "★" : "☆"}</span>
+      </button>
+    `;
+
+    const favoriteBtn = card.querySelector(".favorite-btn");
+    favoriteBtn.addEventListener("click", () => toggleFavorite(index));
+
+    return card;
+  }
+
+  function toggleFavorite(index) {
+    if (favorites.includes(index)) {
+      favorites = favorites.filter((favIndex) => favIndex !== index);
+    } else {
+      favorites.push(index);
     }
-  });
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    renderGames(games, gameList, favoritesList, favorites);
+  }
 
-  // Utility function to update favicon
   function updateFavicon(faviconURL) {
     let faviconLink = document.querySelector("link[rel='icon']");
     if (!faviconLink) {
@@ -117,11 +116,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.head.appendChild(faviconLink);
     }
     faviconLink.href = faviconURL;
-    console.log("Favicon updated to:", faviconURL);
   }
 });
 
-// Show credits popup
 function showCredits(creator, link) {
   alert(`Creator: ${creator}\nOriginal Page: ${link}`);
 }
