@@ -1,88 +1,48 @@
-:root {
-  --background-color: #121212;
-  --text-color: #f0f0f0;
-  --accent-color: #03dac5;
-  --header-footer-bg: #1f1f1f;
-}
-
-.light-mode {
-  --background-color: #ffffff;
-  --text-color: #333333;
-  --accent-color: #6200ea;
-  --header-footer-bg: #f4f4f9;
-}
-
+/* Global Styles (Dark Mode Only) */
 body {
+  background-color: #121212;
+  color: #ffffff;
   font-family: Arial, sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
   margin: 0;
+  padding: 0;
 }
 
-header {
-  text-align: center;
-  background-color: var(--header-footer-bg);
-  color: var(--accent-color);
-  padding: 1rem;
-}
-
-.settings {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-#game-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.game-card {
-  background: var(--header-footer-bg);
-  border: 1px solid var(--accent-color);
-  border-radius: 8px;
-  overflow: hidden;
-  width: 200px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  color: var(--text-color);
-}
-
-.game-card img {
-  width: 100%;
-  height: auto;
-}
-
-.game-card a {
-  display: block;
-  padding: 0.5rem;
-  background: var(--accent-color);
-  color: var(--header-footer-bg);
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 0 0 8px 8px;
-}
-
-footer {
+header, footer {
   text-align: center;
   padding: 1rem;
-  background-color: var(--header-footer-bg);
-  color: var(--text-color);
+  background-color: #333333;
+  color: #ffffff;
 }
 
 button {
-  padding: 5px 10px;
+  background-color: #00b894;
   border: none;
-  background-color: var(--accent-color);
-  color: var(--header-footer-bg);
+  color: white;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #018786; /* Slightly darker accent */
+  background-color: #019874;
+}
+
+.game-card {
+  display: inline-block;
+  width: 200px;
+  margin: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-card img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
