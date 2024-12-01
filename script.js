@@ -23,6 +23,9 @@ function createGameCard(game, isFavorite) {
   const title = document.createElement('h3');
   title.textContent = game.name;
 
+  const buttonBox = document.createElement('div');
+  buttonBox.className = 'button-box';
+
   const playLink = document.createElement('a');
   playLink.href = game.path;
   playLink.textContent = 'Play';
@@ -30,7 +33,9 @@ function createGameCard(game, isFavorite) {
   const creditsLink = document.createElement('a');
   creditsLink.href = game.link;
   creditsLink.textContent = 'Credits';
-  creditsLink.style.marginLeft = '10px';
+
+  buttonBox.appendChild(playLink);
+  buttonBox.appendChild(creditsLink);
 
   const favoriteButton = document.createElement('button');
   favoriteButton.className = 'favorite-button';
@@ -46,8 +51,7 @@ function createGameCard(game, isFavorite) {
 
   gameCard.appendChild(thumbnail);
   gameCard.appendChild(title);
-  gameCard.appendChild(playLink);
-  gameCard.appendChild(creditsLink);
+  gameCard.appendChild(buttonBox);
   gameCard.appendChild(favoriteButton);
 
   return gameCard;

@@ -102,3 +102,33 @@ h2 {
 .favorite-button:hover {
   background-color: #666;
 }
+
+/* Box styling for buttons */
+.button-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.button-box a {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #333;
+  border: 1px solid #00ff7f;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-box a:hover {
+  background-color: #00cc66;
+  transform: scale(1.05);
+}
+
+.button-box a:active {
+  background-color: #008f4d;
+  transform: scale(0.95);
+}
