@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STFX Games Library</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <title>My Drive - Google Drive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.png">
 </head>
-
 <body>
     <header>
         <h1>STFX Games Library</h1>
-        <input type="text" id="siteUrlInput" placeholder="Enter website URL">
-        <button onclick="setTabStyle()">Set Tab Style</button>
     </header>
 
-    <section class="favorites-section">
-        <h2>Favorites</h2>
-        <div class="favorites-list" id="favoritesList"></div>
-    </section>
+    <main>
+        <section id="favorites">
+            <h2>Favorites</h2>
+            <div id="games-container"></div>
+        </section>
+    </main>
 
-    <section class="games-section">
-        <h2>Games</h2>
-        <div class="game-list" id="gameList"></div>
-    </section>
+    <footer>
+        <p>© 2024 STFX Games Library</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-
 </html>

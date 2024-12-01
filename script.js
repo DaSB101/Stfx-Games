@@ -1,92 +1,47 @@
-const games = [
-  { name: "Stranded On A Raft", image: "https://example.com/raft.jpg", url: "https://example.com/raft.html" }
-];
+document.addEventListener("DOMContentLoaded", () => {
+  const gamesContainer = document.getElementById("games-container");
 
-const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-function renderGames() {
-  const gameList = document.getElementById("gameList");
-  const favoritesList = document.getElementById("favoritesList");
-
-  gameList.innerHTML = "";
-  favoritesList.innerHTML = "";
-
-  favorites.forEach((fav) => {
-      const card = createGameCard(fav, true);
-      favoritesList.appendChild(card);
-  });
-
-  games.forEach((game) => {
-      const card = createGameCard(game, false);
-      gameList.appendChild(card);
-  });
-}
-
-function createGameCard(game, isFavorite) {
-  const card = document.createElement("div");
-  card.className = "game-card";
-
-  const img = document.createElement("img");
-  img.src = game.image;
-  img.alt = game.name;
-
-  const title = document.createElement("h3");
-  title.textContent = game.name;
-
-  const playButton = document.createElement("button");
-  playButton.textContent = "Play";
-  playButton.onclick = () => window.location.href = game.url;
-
-  const favButton = document.createElement("button");
-  favButton.textContent = isFavorite ? "Unfavorite" : "Favorite";
-  favButton.onclick = () => toggleFavorite(game);
-
-  card.appendChild(img);
-  card.appendChild(title);
-  card.appendChild(playButton);
-  card.appendChild(favButton);
-
-  return card;
-}
-
-function toggleFavorite(game) {
-  const index = favorites.findIndex((fav) => fav.name === game.name);
-  if (index > -1) {
-      favorites.splice(index, 1);
-  } else {
-      favorites.push(game);
-  }
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-  renderGames();
-}
-
-function setTabStyle() {
-  const siteUrl = document.getElementById("siteUrlInput").value.trim();
-  if (!siteUrl) {
-      alert("Please enter a valid URL");
-      return;
-  }
-
-  fetch(siteUrl)
-      .then((response) => response.text())
-      .then((html) => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, "text/html");
-          const favicon = doc.querySelector("link[rel~='icon']")?.href;
-          const title = doc.querySelector("title")?.textContent || "Unknown Site";
-
-          if (favicon) {
-              document.title = title;
-              const link = document.createElement("link");
-              link.rel = "icon";
-              link.href = favicon;
-              document.head.appendChild(link);
-              alert("Tab style set successfully!");
-          } else {
-              alert("Failed to fetch site information. Please try another URL.");
-          }
+  // Fetch the JSON config file
+  fetch("config.json")
+      .then((response) => {
+          if (!response.ok) throw new Error("Failed to load config.json");
+          return response.json();
       })
-      .catch(() => alert("Failed to fetch site information. Please try another URL."));
-}
+      .then((games) => {
+          // Loop through each game in the JSON
+          games.forEach((game) => {
+              // Create a card
+              const card = document.createElement("div");
+              card.className = "game-card";
 
-renderGames();
+              // Add thumbnail
+              const img = document.createElement("img");
+              img.src = game.thumbnail;
+              img.alt = `${game.name} Thumbnail`;
+
+              // Add game name link
+              const nameLink = document.createElement("a");
+              nameLink.href = game.path;
+              nameLink.textContent = game.name;
+              nameLink.target = "_blank";
+
+              // Add creator link
+              const creatorLink = document.createElement("a");
+              creatorLink.href = game.link;
+              creatorLink.textContent = `By ${game.creator}`;
+              creatorLink.target = "_blank";
+
+              // Append elements to card
+              card.appendChild(img);
+              card.appendChild(nameLink);
+              card.appendChild(creatorLink);
+
+              // Add card to container
+              gamesContainer.appendChild(card);
+          });
+      })
+      .catch((error) => {
+          console.error("Error loading games:", error);
+          gamesContainer.innerHTML = "<p>Failed to load games. Please check the configuration.</p>";
+      });
+});
