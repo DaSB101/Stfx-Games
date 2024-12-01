@@ -1,47 +1,86 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const gamesContainer = document.getElementById("games-container");
+// Load games from JSON configuration
+async function loadGames() {
+  const response = await fetch('config.json');
+  const games = await response.json();
+  const gamesList = document.getElementById('games-list');
+  gamesList.innerHTML = '';
 
-  // Fetch the JSON config file
-  fetch("config.json")
-      .then((response) => {
-          if (!response.ok) throw new Error("Failed to load config.json");
-          return response.json();
-      })
-      .then((games) => {
-          // Loop through each game in the JSON
-          games.forEach((game) => {
-              // Create a card
-              const card = document.createElement("div");
-              card.className = "game-card";
+  games.forEach(game => {
+    const gameCard = createGameCard(game, false);
+    gamesList.appendChild(gameCard);
+  });
+}
 
-              // Add thumbnail
-              const img = document.createElement("img");
-              img.src = game.thumbnail;
-              img.alt = `${game.name} Thumbnail`;
+// Create a game card
+function createGameCard(game, isFavorite) {
+  const gameCard = document.createElement('div');
+  gameCard.className = 'game-card';
 
-              // Add game name link
-              const nameLink = document.createElement("a");
-              nameLink.href = game.path;
-              nameLink.textContent = game.name;
-              nameLink.target = "_blank";
+  const thumbnail = document.createElement('img');
+  thumbnail.src = game.thumbnail;
+  thumbnail.alt = `${game.name} thumbnail`;
 
-              // Add creator link
-              const creatorLink = document.createElement("a");
-              creatorLink.href = game.link;
-              creatorLink.textContent = `By ${game.creator}`;
-              creatorLink.target = "_blank";
+  const title = document.createElement('h3');
+  title.textContent = game.name;
 
-              // Append elements to card
-              card.appendChild(img);
-              card.appendChild(nameLink);
-              card.appendChild(creatorLink);
+  const playLink = document.createElement('a');
+  playLink.href = game.path;
+  playLink.textContent = 'Play';
 
-              // Add card to container
-              gamesContainer.appendChild(card);
-          });
-      })
-      .catch((error) => {
-          console.error("Error loading games:", error);
-          gamesContainer.innerHTML = "<p>Failed to load games. Please check the configuration.</p>";
-      });
+  const creditsLink = document.createElement('a');
+  creditsLink.href = game.link;
+  creditsLink.textContent = 'Credits';
+  creditsLink.style.marginLeft = '10px';
+
+  const favoriteButton = document.createElement('button');
+  favoriteButton.className = 'favorite-button';
+  favoriteButton.textContent = isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
+
+  favoriteButton.addEventListener('click', () => {
+    if (isFavorite) {
+      removeFavorite(game);
+    } else {
+      addFavorite(game);
+    }
+  });
+
+  gameCard.appendChild(thumbnail);
+  gameCard.appendChild(title);
+  gameCard.appendChild(playLink);
+  gameCard.appendChild(creditsLink);
+  gameCard.appendChild(favoriteButton);
+
+  return gameCard;
+}
+
+// Add a game to favorites
+function addFavorite(game) {
+  const favoritesList = document.getElementById('favorites-list');
+  const gameCard = createGameCard(game, true);
+  favoritesList.appendChild(gameCard);
+}
+
+// Remove a game from favorites
+function removeFavorite(game) {
+  const favoritesList = document.getElementById('favorites-list');
+  const children = Array.from(favoritesList.children);
+  for (const child of children) {
+    const title = child.querySelector('h3').textContent;
+    if (title === game.name) {
+      favoritesList.removeChild(child);
+      break;
+    }
+  }
+}
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', () => {
+  loadGames();
+
+  document.getElementById('set-tab-button').addEventListener('click', () => {
+    const tabInput = document.getElementById('tab-input').value;
+    if (tabInput) {
+      document.title = tabInput;
+    }
+  });
 });
