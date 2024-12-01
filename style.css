@@ -1,118 +1,107 @@
-/* General Styling */
-body {
+/* General Reset */
+* {
   margin: 0;
   padding: 0;
-  background-color: #1c1c1c;
-  color: #ffffff;
+  box-sizing: border-box;
+}
+
+body {
   font-family: 'Arial', sans-serif;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-}
-
-h1 {
-  text-align: center;
-  color: #00cec9;
-  margin: 20px 0;
-}
-
-/* Game List Section */
-#game-list,
-#favorites-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  background-color: #121212;
+  color: #ffffff;
+  overflow-x: hidden;
   padding: 20px;
 }
 
-.game-card {
-  background-color: #2d2d2d;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-  padding: 15px;
+header {
   text-align: center;
-  max-width: 200px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
 }
 
-.game-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.8);
+h1 {
+  font-size: 2.5rem;
+  color: #00ff6a;
+  text-shadow: 2px 2px 4px #000000;
 }
 
-.game-card img {
-  max-width: 100%; /* Ensures images fit card width */
-  max-height: 120px;
-  object-fit: cover; /* Crop images proportionally */
-  border-radius: 5px;
-}
-
-/* Game Titles */
-.game-title {
-  display: block;
-  margin: 10px 0;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #00cec9;
-  text-decoration: none;
-}
-
-.game-title:hover {
-  color: #81ecec;
-}
-
-/* Buttons */
-button {
-  background-color: #00cec9;
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
   border: none;
   border-radius: 5px;
-  color: #1c1c1c;
-  padding: 5px 10px;
-  font-size: 0.9rem;
+  margin-right: 10px;
+  outline: none;
+}
+
+button {
+  background-color: #00ff6a;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: #81ecec;
+  background-color: #00cc55;
 }
 
-.favorite-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #ffd700;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+.favorites-section,
+.games-section {
+  margin-top: 30px;
 }
 
-.favorite-btn:hover {
-  transform: scale(1.2);
-}
-
-/* Favorites Section */
-#favorites-section {
-  margin-bottom: 30px;
-}
-
-#favorites-section h2 {
-  text-align: center;
-  color: #81ecec;
+.favorites-section h2,
+.games-section h2 {
+  font-size: 1.8rem;
   margin-bottom: 10px;
+  color: #00ff6a;
+  text-shadow: 2px 2px 4px #000000;
 }
 
-/* Footer */
-footer {
+.game-list,
+.favorites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.game-card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   text-align: center;
-  padding: 10px;
-  background-color: #2d2d2d;
-  color: #ffffff;
-  font-size: 0.8rem;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  transition: transform 0.3s;
 }
 
-/* Prevent Horizontal Scrolling */
-body, html {
-  overflow-x: hidden;
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 2px solid #00ff6a;
+}
+
+.game-card h3 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.game-card button {
+  margin: 10px;
+}
+
+.favorites-header {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #00ff6a;
+  text-shadow: 2px 2px 4px #000000;
 }

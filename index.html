@@ -1,34 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STFX Games Library</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Link to CSS -->
-  <link rel="icon" href=""> <!-- Favicon will be dynamically set -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STFX Games Library</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
-  <h1>STFX Games Library</h1>
+    <header>
+        <h1>STFX Games Library</h1>
+        <input type="text" id="siteUrlInput" placeholder="Enter website URL">
+        <button onclick="setTabStyle()">Set Tab Style</button>
+    </header>
 
-  <!-- Tab Style Controls -->
-  <div class="controls">
-    <input id="favicon-input" type="text" placeholder="Enter website URL" />
-    <button id="set-favicon">Set Tab Style</button>
-  </div>
+    <section class="favorites-section">
+        <h2>Favorites</h2>
+        <div class="favorites-list" id="favoritesList"></div>
+    </section>
 
-  <!-- Favorites Section -->
-  <section id="favorites-section">
-    <h2>Favorites</h2>
-    <div id="favorites-list"></div>
-  </section>
-
-  <!-- Games Section -->
-  <section id="games-section">
-    <div id="game-list"></div>
-  </section>
-
-  <footer>© 2024 STFX Games Library</footer>
-
-  <script src="script.js" defer></script> <!-- Link to JS -->
+    <section class="games-section">
+        <h2>Games</h2>
+        <div class="game-list" id="gameList"></div>
+    </section>
 </body>
+
 </html>
