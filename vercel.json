@@ -13,7 +13,10 @@
       ]
     }
   ],
-  "routes": [
-    { "src": "/games/(.*)", "dest": "/games/$1" }
+  "rewrites": [
+    {
+      "source": "/games/(.*)",
+      "destination": "/games/$1"
+    }
   ]
 }
