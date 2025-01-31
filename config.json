@@ -33,5 +33,12 @@
     "path": "games/vampire-survivors/index.html",
     "creator": "poncle",
    "link": "https://poncle.itch.io/vampire-survivors"
+},
+{
+    "name": "Dungeons & Degenerate Gamblers",
+   "thumbnail": "games/dndg/tn.png",
+    "path": "games/dndg/index.html",
+    "creator": "purplemosscollectors",
+   "link": "https://purplemosscollectors.itch.io/dndg"
 }
 ]
