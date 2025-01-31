@@ -33,5 +33,19 @@
     "path": "games/dndg/index.html",
     "creator": "purplemosscollectors",
    "link": "https://purplemosscollectors.itch.io/dndg"
+},
+{
+    "name": "Pigeon Ascent",
+   "thumbnail": "games/pigeon-ascent/tn.png",
+    "path": "games/pigeon-ascent/index.html",
+    "creator": "escada",
+   "link": "https://escada-games.itch.io/pigeon-ascent"
+},
+{
+    "name": "The Split(Multiplayer)",
+   "thumbnail": "games/the-split/tn.png",
+    "path": "games/the-split/thesplit.html",
+    "creator": "hhmmhm",
+   "link": "https://hhmmhm.itch.io/the-split"
 }
 ]
