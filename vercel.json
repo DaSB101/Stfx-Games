@@ -1,0 +1,13 @@
+{
+  "headers": [
+    {
+      "source": "/games/(.*).pck",
+      "headers": [
+        { "key": "Content-Type", "value": "application/octet-stream" }
+      ]
+    }
+  ],
+  "routes": [
+    { "src": "/games/(.*)", "dest": "/games/$1" }
+  ]
+}
