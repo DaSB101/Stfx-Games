@@ -26,5 +26,12 @@
       "path": "games/roulette-knight-ludum-dare-41/index.html",
       "creator": "fourquarters",
      "link": "https://fourquarters.itch.io/roulette-knight-ludum-dare-41"
-  }
+  },
+  {
+    "name": "Vampire Survivors",
+   "thumbnail": "games/vampire-survivors/tn.png",
+    "path": "games/vampire-survivors/index.html",
+    "creator": "poncle",
+   "link": "https://poncle.itch.io/vampire-survivors"
+}
 ]
