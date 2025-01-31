@@ -5,6 +5,12 @@
       "headers": [
         { "key": "Content-Type", "value": "application/octet-stream" }
       ]
+    },
+    {
+      "source": "/games/(.*).wasm",
+      "headers": [
+        { "key": "Content-Type", "value": "application/wasm" }
+      ]
     }
   ],
   "routes": [
