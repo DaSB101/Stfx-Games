@@ -13,4 +13,18 @@
       "creator": "rinexusgames",
       "link": "https://rinexusgames.itch.io/stranded-on-a-raft"
   }
+  {
+    "name": "Tiny Kingdom",
+    "thumbnail": "games/tiny-kingdom/tn.png",
+    "path": "games/tiny-kingdom/index.html",
+    "creator": "neltile",
+    "link": "https://neltile.itch.io/tiny-kingdom"
+}
+{
+  "name": "Roulette Knight",
+  "thumbnail": "games/roulette-knight-ludum-dare-41/tn.png",
+  "path": "games/roulette-knight-ludum-dare-41/index.html",
+  "creator": "fourquarters",
+  "link": "https://fourquarters.itch.io/roulette-knight-ludum-dare-41"
+}
 ]
